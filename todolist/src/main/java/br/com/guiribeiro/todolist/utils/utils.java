@@ -8,7 +8,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 
-public class utils {
+public class Utils {
     
 
     public static void copyNonNullProperties(Object source, Object target)
