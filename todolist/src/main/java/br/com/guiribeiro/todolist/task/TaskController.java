@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import org.aspectj.weaver.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.guiribeiro.todolist.utils.utils;
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
@@ -61,10 +63,15 @@ public class TaskController {
     public TaskModel update(@RequestBody TaskModel taskModel, HttpServletRequest request, @PathVariable UUID id)
     {
         var idUser = request.getAttribute("idUser");
+
+        var task = this.taskRepository.findById(id);
+
+        Utils.copyNonNullProperties(taskModel, task);
+
         taskModel.setIdUser((UUID)idUser);
         taskModel.setId(id);
         return this.taskRepository.save(taskModel);
     }
 
-    
+
 }
